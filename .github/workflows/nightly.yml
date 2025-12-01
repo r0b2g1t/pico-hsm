@@ -2,7 +2,7 @@ name: "Nightly deploy"
 
 on:
   schedule:
-    - cron: '0 2 * * *'
+    - cron: "0 2 * * *"
   workflow_dispatch:
 
 jobs:
@@ -18,19 +18,18 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{ matrix.refs }}
-          submodules: 'recursive'
+          submodules: "recursive"
       - name: Restore private key
         run: |
           echo "${{ secrets.PRIVATE_KEY_B64 }}" | base64 -d > private.pem
           chmod 600 private.pem
-      - name : Build
+      - name: Build
         env:
           PICO_SDK_PATH: ../pico-sdk
           SECURE_BOOT_PKEY: ../private.pem
         run: |
-           ./workflows/autobuild.sh pico
-           ./build_pico_hsm.sh --no-eddsa
-           ./workflows/autobuild.sh esp32
+          ./workflows/autobuild.sh pico
+          ./build_pico_hsm.sh --no-eddsa
       - name: Delete private key
         run: rm private.pem
       - name: Update nightly release

@@ -29,7 +29,7 @@ for board in "$board_dir"/*
 do
     board_name="$(basename -- "$board" .h)"
     rm -rf -- ./*
-    PICO_SDK_PATH="${PICO_SDK_PATH}" cmake .. -DPICO_BOARD=$board_name -DSECURE_BOOT_PKEY=${SECURE_BOOT_PKEY}
+    PICO_SDK_PATH="${PICO_SDK_PATH}" cmake .. -DPICO_BOARD=$board_name #-DSECURE_BOOT_PKEY=${SECURE_BOOT_PKEY}
     make -j`nproc`
     mv pico_hsm.uf2 ../release/pico_hsm_$board_name-$SUFFIX.uf2
 done
@@ -41,7 +41,7 @@ if [[ $NO_EDDSA -eq 0 ]]; then
     do
         board_name="$(basename -- "$board" .h)"
         rm -rf -- ./*
-        PICO_SDK_PATH="${PICO_SDK_PATH}" cmake .. -DPICO_BOARD=$board_name -DSECURE_BOOT_PKEY=${SECURE_BOOT_PKEY} -DENABLE_EDDSA=1
+        PICO_SDK_PATH="${PICO_SDK_PATH}" cmake .. -DPICO_BOARD=$board_name -DENABLE_EDDSA=1 #-DSECURE_BOOT_PKEY=${SECURE_BOOT_PKEY}
         make -j`nproc`
         mv pico_hsm.uf2 ../release_eddsa/pico_hsm_$board_name-$SUFFIX-eddsa1.uf2
     done
