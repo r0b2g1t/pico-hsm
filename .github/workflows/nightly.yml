@@ -1,8 +1,6 @@
 name: "Nightly deploy"
 
 on:
-  schedule:
-    - cron: "0 2 * * *"
   workflow_dispatch:
 
 jobs:
@@ -11,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        refs: [master, development]
+        refs: [master]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
